@@ -1,0 +1,25 @@
+package mjsip_design.sipServerDesign.service.abstracts;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+
+public interface CallService {
+	DataResult<List<Call>> getAllCalls(); //getAll()
+	Result add(Call call);	
+		
+	DataResult<Call> getByCallName(String callName);
+	DataResult<Call> getByCallId(int id);		
+	DataResult<List <Call>> getByCallNameAndDomainId(String callName, int domainId);
+	
+	
+	List<Call> getByCallNameAndCallStatus(String callName, int domainId);
+	List<Call> getByCallNameContains(String callName);
+	List<Call> getByNameandCategory(String callName, int domainId);
+	
+
+}

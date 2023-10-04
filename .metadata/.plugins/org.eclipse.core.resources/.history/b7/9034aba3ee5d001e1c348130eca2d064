@@ -1,0 +1,7 @@
+package mjsip_design.sipServerDesign.core.utililities.results;
+
+public class ErrorResult {
+	public ErrorResult() {
+		super(false);
+	} 
+}

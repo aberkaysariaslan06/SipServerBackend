@@ -1,0 +1,12 @@
+package mjsip_design.sipServerDesign.service.abstracts;
+
+import mjsip_design.sipServerDesign.core.entities.User;
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+
+
+public interface UserService {
+	Result add(User user);	
+	DataResult<User> getByEmail(String callName); //tamam
+}

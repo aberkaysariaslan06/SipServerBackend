@@ -1,0 +1,57 @@
+package mjsip_design.sipServerDesign.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import mjsip_design.sipServerDesign.entities.concretes.User;
+import mjsip_design.sipServerDesign.repository.UserRepository;
+
+@Service
+public class UserService {
+
+	private UserRepository userRepository;
+
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+		
+	}
+	public User saveOneUser(User newUser) {
+		return userRepository.save(newUser);
+		
+	}
+	public User getOneUserById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
+	public User updateOneUser(Long userId, User newUser) {
+		java.util.Optional<User> user = userRepository.findById(userId);	
+		if(user.isPresent()) { 
+			User foundUser = user.get();
+			foundUser.setUserName(newUser.getUserName());
+			foundUser.setPassword(newUser.getPassword());
+			foundUser.setAlias(newUser.getAlias());
+			foundUser.setHostName(newUser.getHostName());
+			foundUser.setRole(newUser.getRole());		
+						
+			userRepository.save(foundUser);
+			return foundUser;
+		} else { 
+			return null;
+		}
+		
+	}
+	public void deleteById(Long userId) {
+		 userRepository.deleteById(userId);
+		
+	}
+	public User getByUserName() {
+		return userRepository.fi;
+	}
+
+
+
+	
+}

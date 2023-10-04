@@ -1,0 +1,93 @@
+package mjsip_design.sipServerDesign.api.controllers;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import mjsip_design.sipServerDesign.core.entities.User;
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.ErrorDataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+import mjsip_design.sipServerDesign.service.abstracts.UserService;
+
+@RestController
+@RequestMapping("/api/users")
+public class UsersController {
+	private UserService userService;
+	
+	@Autowired
+	public UsersController(UserService userService) {
+		this.userService = userService;	
+	}
+	
+	
+	@PostMapping("/add")
+	public ResponseEntity<?> add(@RequestBody User user) {
+		return ResponseEntity.ok(this.userService.add(user));
+	}
+
+
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorDataResult<Object> handleValidationException
+	(MethodArgumentNotValidException exceptions){
+	Map<String,String> validationErrors = new HashMap<String, String>();
+		for(FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
+		validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
+			}
+	ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
+		return errors;
+	}
+	}
+
+
+	/*
+	@GetMapping("/{userId}")
+	public DataResult<User> getByCallId(@PathVariable int callId){
+		return this.callService.getByCallId(callId);		
+		
+	} */
+	
+	/*
+	@GetMapping("/by-username/{userName}")
+		public ResponseEntity<List<User>> getByUserNameContains(@PathVariable String userName) {
+			List<User> users = userService.getByUserNameContains(userName);
+			 if (users.isEmpty()) {
+			        // Kullanıcı bulunamadığında yapılacak işlem
+			        // Örneğin: throw new EntityNotFoundException("Kullanıcı bulunamadı");
+			    }
+
+			    return users;
+			}
+			*/
+	
+	/*
+	@PutMapping("/{userId}")
+		public User updateOneUser(@PathVariable Long userId, @RequestBody User newUser) {
+			return userService.updateOneUser(userId, newUser);
+			
+	}
+	@DeleteMapping("/{userId}")
+	public void deleteOneUser(@PathVariable Long userId) {
+			 userService.deleteById(userId);
+
+	}
+	
+	
+
+}
+*/

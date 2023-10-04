@@ -1,0 +1,7 @@
+package mjsip_design.sipServerDesign.service.concretes;
+
+import mjsip_design.sipServerDesign.service.abstracts.UserService;
+
+public class UserManager implements UserService{
+
+}

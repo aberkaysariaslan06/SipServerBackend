@@ -1,0 +1,120 @@
+	package mjsip_design.sipServerDesign.api.controllers;
+	
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.apache.el.stream.Optional;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+import mjsip_design.sipServerDesign.entities.dtos.CallWithDomainDto;
+import mjsip_design.sipServerDesign.requests.CallUpdateRequest;
+import mjsip_design.sipServerDesign.service.abstracts.CallService;
+
+	@RestController
+	@RequestMapping("/api/calls")
+	
+	public class CallsController {
+		 	
+		private CallService callService;	
+		
+		@Autowired
+		public CallsController(CallService callService) {
+			super();
+			this.callService = callService;
+		}
+		
+		
+		@GetMapping("/{callId}")
+		public DataResult<Call> getByCallId(@PathVariable int callId){
+			return this.callService.getByCallId(callId);		
+			
+		}
+		
+		
+		@GetMapping("/getall")
+		public DataResult<List<Call>> getAllCalls(){  //@RP: bize gelen requestleri parse(ayir) et ve sagindaki degiskenin icine yerlestir
+			return this.callService.getAllCalls();
+		}	
+			
+		@PostMapping("/add")
+		public Result add(@RequestBody Call call) {
+			return this.callService.add(call);
+		}
+		@GetMapping("/getByCallName")
+		public DataResult<Call> getByCallName(@RequestParam String callName) {
+			return this.callService.getByCallName(callName);
+		}
+		@GetMapping("/getByCallNameAndDomainId")
+		public DataResult<Call> getByCallNameAndDomainId(@RequestParam("callName") String callName, @RequestParam ("domainId") int domainId) {
+			System.out.println(callName);
+			System.out.println(domainId);
+			return this.callService.getByCallNameAndDomainId(callName, domainId);
+		}	
+		@GetMapping("/getByCallNameContains")
+		public DataResult<List<Call>> getByCallNameContains(@RequestParam String callName){
+			return this.callService.getByCallNameContains(callName);
+			
+		}
+		@GetMapping("/getByCallNameAndCallStatus")
+		public DataResult<List<Call>> getByCallNameAndCallStatus(@RequestParam String callName, @RequestParam String callStatus) {
+			return this.callService.getByCallNameAndCallStatus(callName, callStatus);
+		}
+		@GetMapping("/getAllByPage")
+		public DataResult<List<Call>> getAllByPage(int pageNo, int pageSize) { 
+			return this.callService.getAllByPage(pageNo, pageSize);
+		}
+		
+		@GetMapping("/getAllSorted")
+		public DataResult<List<Call>> getAllSorted() {
+			return this.callService.getAllSorted();
+					
+		}
+		@GetMapping("/getCallWithDomainDetails")
+		public DataResult<List<CallWithDomainDto>> getCallWithDomainDetails() {
+			return this.callService.getCallWithDomainDetails();
+					
+		}
+		
+		
+		
+	
+/*			
+	
+		@PostMapping
+		public Call createOneCall(@RequestBody CallCreateRequest newCallRequest) {
+			return callService.createOneCall(newCallRequest);
+			   
+		}
+		
+		@GetMapping("/{callId}")
+		public Call getOneCall(@PathVariable Long callId) {
+			return callService.getOneCallById(callId);
+			
+		}
+		@PutMapping("/{callId}")
+		public Call updateOneCall(@PathVariable Long callId, @RequestBody CallUpdateRequest updateCall) { 
+			return callService.updateOneCallById(callId, updateCall);
+		}
+		@DeleteMapping(("/{callId}"))
+		public void deleteOnePost(@PathVariable Long callId) {
+			 callService.deleteOneCallById(callId);
+		}
+				
+		*/
+		
+	} 
+	 

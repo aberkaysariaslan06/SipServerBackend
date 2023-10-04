@@ -1,0 +1,67 @@
+package mjsip_design.sipServerDesign.entities.concretes;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Entity
+@Table(name = "domains")
+@Data 
+public class Domain {
+	@Id
+	@Column(name = "domain_id")
+	private int domainId;
+	
+	@Column(name = "domain_name")
+	private String domainName;
+	
+	@OneToMany
+	private List<Call> calls;
+	/*
+	@Column(name = "user_id")
+	private long userId;
+		
+	@Column(name = "call_id")
+	private long callId;
+	*/
+	/*
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE) //bir user silindiginde onun yaptigi tum aramalar silinecek
+	@JsonIgnore
+	private User user;
+	*/
+	/*
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "call_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE) //bir user silindiginde onun yaptigi tum aramalar silinecek
+	@JsonIgnore
+	private Call call;
+	*/
+	
+
+	
+	/*
+	@Column(name = "start_time")
+	private LocalDateTime startTime;
+	
+	@Column(name = "end_time")
+	private LocalDateTime endTime;
+*/
+	
+
+	
+
+}

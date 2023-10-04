@@ -1,0 +1,41 @@
+package mjsip_design.sipServerDesign.repository.abstracts;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+
+//Primary key 'Long' oldugu icin Long olarak verdik
+public interface CallRepository extends JpaRepository<Call, Integer> {
+	
+	/*
+	 * SQL Queryde ne yapmak istiyorsak aslinda ona gore yazip cizdik
+	 * List olarak yaptıgımızda birden fazla dondurur.
+	 */
+	
+	Call getByCallName(String callName);
+	
+	Call getByCallId(int id);
+	
+	Call getByCallNameAndDomain(String callName, int domainId);
+	
+	List<Call> getByCallNameAndCallStatus(String callName, String status);
+	
+	List<Call> getByCallNameContains(String callName);
+	
+	@Query("From Call where callName=:callName and domain.domainId=:domainId" )
+	List<Call> getByNameandCategory(String callName, int domainId);
+	
+	
+	/*
+	 * JPQL
+	 * select * from calls where call_name=bisey and domain_id=bisey
+	 */
+	
+	//List<Call> findByUserId(Long userId); //findby ile usera ait olan islemler burada birlestirilebilir. findByUserHostName...
+	
+	
+
+}

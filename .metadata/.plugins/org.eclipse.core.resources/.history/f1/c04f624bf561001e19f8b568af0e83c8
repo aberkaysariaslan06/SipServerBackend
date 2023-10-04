@@ -1,0 +1,31 @@
+package mjsip_design.sipServerDesign.service.abstracts;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+import mjsip_design.sipServerDesign.entities.dtos.CallWithDomainDto;
+
+public interface CallService {
+	DataResult<List<Call>> getAllCalls(); //getAll()
+	DataResult<List<Call>> getAllSorted(); //getAll()
+	DataResult<List<Call>> getAllByPage(int pageNo, int pageSize); //siralama ve sayf
+	Result add(Call call);	
+	Result updateCallById(int callId, Call updatedCall);
+	void deleteByCallId(int callId);
+	DataResult<Call> getByCallName(String callName); //tamam
+	DataResult<Call> getByCallId(int callId);		//tamam
+	DataResult<Call> getByCallNameAndDomainId(String callName, int domainId); //tamam
+	
+	
+	DataResult<List<Call>> getByCallNameAndCallStatus(String callName, String callStatus); //tamam
+	DataResult<List<Call>> getByCallNameContains(String callName); //tamam
+	DataResult<List<Call>> getByNameAndDomain(String callName, int domainId);	
+	
+	DataResult<List<CallWithDomainDto>> getCallWithDomainDetails();
+	
+}
+ 

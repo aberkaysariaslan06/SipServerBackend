@@ -1,0 +1,10 @@
+package mjsip_design.sipServerDesign.core.utililities.results;
+
+public class DataResult extends Result {
+
+	public DataResult(boolean success, String message) {
+		super(success, message);
+		// TODO Auto-generated constructor stub
+	}
+
+}

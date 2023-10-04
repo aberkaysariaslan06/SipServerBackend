@@ -1,0 +1,5 @@
+package mjsip_design.sipServerDesign.entities.dtos;
+//Data Transfer Obj.
+public class CallWithDomainDto {
+
+}

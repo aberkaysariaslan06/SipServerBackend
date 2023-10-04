@@ -1,0 +1,5 @@
+package mjsip_design.sipServerDesign.core.dataAccess;
+
+public interface UserDao {
+
+}

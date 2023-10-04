@@ -1,0 +1,18 @@
+package mjsip_design.sipServerDesign.repository.abstracts;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import mjsip_design.sipServerDesign.entities.concretes.Domain;
+
+public interface DomainRepository extends JpaRepository<Domain, Long> {
+
+	List<Domain> findByUserIdAndCallId(Long userId, Long callId);
+
+	List<Domain> findByUserId(Long userId);
+
+	List<Domain> findByCallId(Long callId);
+
+}

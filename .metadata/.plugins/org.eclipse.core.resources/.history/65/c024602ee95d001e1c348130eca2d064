@@ -1,0 +1,83 @@
+package mjsip_design.sipServerDesign.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+import mjsip_design.sipServerDesign.entities.concretes.Domain;
+import mjsip_design.sipServerDesign.entities.concretes.User;
+import mjsip_design.sipServerDesign.repository.abstracts.DomainRepository;
+import mjsip_design.sipServerDesign.requests.DomainCreateRequest;
+import mjsip_design.sipServerDesign.requests.DomainUpdateRequest;
+import mjsip_design.sipServerDesign.service.UserService;
+
+@Service
+public class DomainService {
+	private DomainRepository domainRepository;
+	private CallService callService;
+	private UserService userService;
+	
+	public DomainService(DomainRepository domainRepository, CallService callService, UserService userService) {
+		this.domainRepository = domainRepository;
+		this.callService = callService;
+		this.userService = userService;
+	}
+
+	public List<Domain> getAllDomainsWithParam(Optional<Long> userId, Optional<Long> callId) {
+		if(userId.isPresent() && callId.isPresent()) { 
+			return domainRepository.findByUserIdAndCallId(userId.get(), callId.get());
+		} else if(userId.isPresent()) {
+			return domainRepository.findByUserId(userId.get());
+			 
+		} else if(callId.isPresent()) {
+			return domainRepository.findByCallId(callId.get());
+		}
+		else 
+			return domainRepository.findAll();
+	
+	}
+
+	public Domain getOneDomainById(Long domainId) {
+		return domainRepository.findById(domainId).orElse(null);
+	}
+	
+	public Domain createOneDomain(DomainCreateRequest domainCreateRequest) { 
+		User user = userService.getOneUserById(domainCreateRequest.getUserId());
+		Call call = callService.getOneCallById(domainCreateRequest.getCallId());
+		//User user = domainCreateRequest.getUser();
+		//Call call = domainCreateRequest.getCall();
+		
+		if(user != null && call !=null) {
+			Domain domainToSave = new Domain();
+			domainToSave.setId(domainCreateRequest.getId());
+			domainToSave.setCall(call);
+			domainToSave.setUser(user);
+			domainToSave.setDomainName(domainCreateRequest.getDomainName());
+			
+			return domainRepository.save(domainToSave);
+			
+		} else 
+			return null;
+		
+	}
+
+	public Domain updateOneDomainById(Long domainId, DomainUpdateRequest domainUpdateRequest) {
+		Optional<Domain> domain = domainRepository.findById(domainId);
+		if(domain.isPresent()) { 
+			Domain domainUpdate = domain.get();
+			domainUpdate.setDomainName(domainUpdateRequest.getDomainName());
+			return domainRepository.save(domainUpdate); 
+				
+		} else
+		return null;
+	}
+
+	public void deleteOneDomainById(Long domainId) {
+		domainRepository.deleteById(domainId);
+		
+		
+	}
+
+}

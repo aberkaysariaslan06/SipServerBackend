@@ -1,0 +1,14 @@
+package mjsip_design.sipServerDesign.core.utililities.results;
+
+public class SuccessResult extends Result {
+
+	
+	public SuccesResult() {
+		super(true);
+	}
+	public SuccesResult(String message) {
+		super(true, message);
+	}
+
+
+}

@@ -1,0 +1,17 @@
+package mjsip_design.sipServerDesign.core.utililities.results;
+
+public class SuccessResult extends Result {
+
+	
+	public SuccesResult() {
+		super(true);
+	}
+	public SuccesResult(String message) {
+		super(true);
+	}
+	public SuccessResult(boolean success, String message) {
+		super(success, message);
+		// TODO Auto-generated constructor stub
+	}
+
+}

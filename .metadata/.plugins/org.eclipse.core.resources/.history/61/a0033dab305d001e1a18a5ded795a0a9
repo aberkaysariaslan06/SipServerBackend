@@ -1,0 +1,16 @@
+package mjsip_design.sipServerDesign.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import mjsip_design.sipServerDesign.entities.concretes.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+	//Jpa'nın icinde DB ile ilgili queryler var. findAll gibi.
+   //List<User> findByUserNameContaining(String userName);
+
+	
+
+}
+ 

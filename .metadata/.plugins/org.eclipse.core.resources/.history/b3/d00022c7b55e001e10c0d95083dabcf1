@@ -1,0 +1,13 @@
+package mjsip_design.sipServerDesign.core.entities;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+
+@Entity
+@Data
+public class User {
+	private int id;
+	private String email;
+	private String password;
+
+}

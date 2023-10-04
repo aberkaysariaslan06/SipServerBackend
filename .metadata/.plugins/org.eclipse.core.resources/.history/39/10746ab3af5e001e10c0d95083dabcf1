@@ -1,0 +1,13 @@
+package mjsip_design.sipServerDesign.entities.dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+//Data Transfer Obj.
+
+
+@Data
+@AllArgsConstructor
+public class CallWithDomainDto { 
+
+}

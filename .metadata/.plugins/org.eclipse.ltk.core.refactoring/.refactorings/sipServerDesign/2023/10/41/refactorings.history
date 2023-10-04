@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;mjsip_design.sipServerDesign.service.concretes.DomainService.java&apos; to &apos;DomainManager.java&apos;&#x0D;&#x0A;- Original project: &apos;sipServerDesign&apos;&#x0D;&#x0A;- Original element: &apos;mjsip_design.sipServerDesign.service.concretes.DomainService.java&apos;&#x0D;&#x0A;- Renamed element: &apos;mjsip_design.sipServerDesign.service.concretes.DomainManager.java&apos;" description="Rename compilation unit &apos;DomainService.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;mjsip_design.sipServerDesign.service.concretes{DomainService.java" name="DomainManager.java" references="false" stamp="1696327873453" version="1.0"/>
+</session>

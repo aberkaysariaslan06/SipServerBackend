@@ -1,0 +1,61 @@
+package mjsip_design.sipServerDesign.api.controllers;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import mjsip_design.sipServerDesign.service.abstracts.UserService;
+
+@RestController
+@RequestMapping("/api/users")
+public class UsersController {
+	private UserService userService;
+	
+	
+	public UsersController(UserService userService) {
+		this.userService = userService;
+		
+	}
+	public void add() {
+		
+	}
+	@GetMapping
+		public List<User> getAllUsers(){
+			return userService.getAllUsers();
+	}
+	@PostMapping
+		public User createUser(@RequestBody User newUser) {
+		 return userService.saveOneUser(newUser);		
+	}
+	@GetMapping("/{userId}")
+		public User getOneUser(@PathVariable Long userId) {
+			return userService.getOneUserById(userId);
+	}
+	/*
+	@GetMapping("/by-username/{userName}")
+		public ResponseEntity<List<User>> getByUserNameContains(@PathVariable String userName) {
+			List<User> users = userService.getByUserNameContains(userName);
+			 if (users.isEmpty()) {
+			        // Kullanıcı bulunamadığında yapılacak işlem
+			        // Örneğin: throw new EntityNotFoundException("Kullanıcı bulunamadı");
+			    }
+
+			    return users;
+			}
+			*/
+	
+	/*
+	@PutMapping("/{userId}")
+		public User updateOneUser(@PathVariable Long userId, @RequestBody User newUser) {
+			return userService.updateOneUser(userId, newUser);
+			
+	}
+	@DeleteMapping("/{userId}")
+	public void deleteOneUser(@PathVariable Long userId) {
+			 userService.deleteById(userId);
+
+	}
+	
+	
+
+}
+*/

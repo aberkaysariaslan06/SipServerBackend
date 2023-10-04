@@ -1,0 +1,36 @@
+package mjsip_design.sipServerDesign.service.concretes;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import mjsip_design.sipServerDesign.core.dataAccess.UserDao;
+import mjsip_design.sipServerDesign.core.entities.User;
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.service.abstracts.UserService;
+
+public class UserManager implements UserService{
+
+	private UserDao userDao;
+	
+	@Autowired
+	public UserManager(UserDao userDao) {
+		super();
+		this.userDao = userDao;
+	}
+	
+	
+	
+
+	@Override
+	public Result add(User user) {
+		// TODO Auto-generated method stub
+		return this.userDao.save(user);
+	}
+
+	@Override
+	public DataResult<User> getByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

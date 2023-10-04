@@ -1,0 +1,62 @@
+package mjsip_design.sipServerDesign.api.controllers;
+
+ 
+ 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import mjsip_design.sipServerDesign.entities.concretes.Domain;
+
+import mjsip_design.sipServerDesign.requests.DomainUpdateRequest;
+import mjsip_design.sipServerDesign.service.abstracts.DomainService;
+
+
+@RestController	
+@RequestMapping("/api/domains")
+public class DomainController {
+	private DomainService domainService;
+	
+
+	public DomainController(DomainService domainService) {
+		this.domainService = domainService;
+	}
+	@GetMapping
+	public List<Domain> getAllDomains(@RequestParam Optional <Long> userId,@RequestParam Optional <Long> callId) {
+		return domainService.getAllDomainsWithParam(userId, callId);
+	}
+	@GetMapping("/{domainId}")
+	public Domain getOneDomain(@PathVariable Long domainId) {
+		return domainService.getOneDomainById(domainId);
+	}
+	
+	
+	@PostMapping
+	public Domain createOneDomain(@RequestBody DomainCreateRequest domainCreateRequest) {
+		return domainService.createOneDomain(domainCreateRequest);
+		
+	}
+	
+	@PutMapping("{domainId}")
+	public Domain updateOneDomain(@PathVariable Long domainId, @RequestBody DomainUpdateRequest domainUpdateRequest) { 
+		return domainService.updateOneDomainById(domainId, domainUpdateRequest);
+			
+	}
+	@DeleteMapping(("/{domainId}"))
+	public void deleteOneDomain(@PathVariable Long domainId) {
+		 domainService.deleteOneDomainById(domainId);
+		 
+	}
+	
+	
+
+	}

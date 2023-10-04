@@ -1,0 +1,12 @@
+package mjsip_design.sipServerDesign.service.abstracts;
+
+import java.util.List;
+
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+import mjsip_design.sipServerDesign.entities.concretes.Domain;
+
+public interface DomainService {
+	DataResult<List<Domain>> getAllDomains(); //getAll()
+	DataResult<Domain> getByDomaind(int domainId);	
+}

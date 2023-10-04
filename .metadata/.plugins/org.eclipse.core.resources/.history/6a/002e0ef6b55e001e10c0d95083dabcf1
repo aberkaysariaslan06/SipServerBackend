@@ -1,0 +1,24 @@
+package mjsip_design.sipServerDesign.core.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name="users")
+public class User {
+	@Id
+	@GeneratedValue
+	
+	@Column(name = "user_id")
+	private int userId;
+	@Column(name = "start_time")
+	private String email;
+	@Column(name = "start_time")
+	private String password;
+
+}

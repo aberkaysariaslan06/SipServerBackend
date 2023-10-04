@@ -1,0 +1,67 @@
+package mjsip_design.sipServerDesign.api.controllers;
+
+ 
+ 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.entities.concretes.Domain;
+
+import mjsip_design.sipServerDesign.requests.DomainUpdateRequest;
+import mjsip_design.sipServerDesign.service.abstracts.DomainService;
+
+
+@RestController	
+@RequestMapping("/api/domains")
+@CrossOrigin
+public class DomainController {
+	private DomainService domainService;
+	
+
+	public DomainController(DomainService domainService) {
+		this.domainService = domainService;
+	}
+	
+	@GetMapping("/getall")
+	public DataResult <List<Domain>> getAllDomains() {
+		return this.domainService.getAllDomains();
+	}
+	
+	
+	@GetMapping("/{domainId}")
+	public DataResult<Domain> getByDomainId(@PathVariable int domainId) {
+		return domainService.getByDomainId(domainId);
+	}
+	
+	
+	@PostMapping("/add")
+	public Result add(@RequestBody Domain domain) {
+		return this.domainService.add();
+	}
+	
+	@PutMapping("{domainId}")
+	public Domain updateOneDomain(@PathVariable Long domainId, @RequestBody DomainUpdateRequest domainUpdateRequest) { 
+		return domainService.updateOneDomainById(domainId, domainUpdateRequest);
+			
+	}
+	@DeleteMapping(("/{domainId}"))
+	public void deleteOneDomain(@PathVariable Long domainId) {
+		 domainService.deleteOneDomainById(domainId);
+		 
+	}
+	
+	
+
+	}

@@ -1,0 +1,183 @@
+package mjsip_design.sipServerDesign.service.concretes;
+
+import java.util.List;
+
+
+import mjsip_design.sipServerDesign.repository.abstracts.CallRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+//import org.apache.el.stream.Optional;
+import org.springframework.stereotype.Service;
+
+import mjsip_design.sipServerDesign.core.utililities.results.DataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.Result;
+import mjsip_design.sipServerDesign.core.utililities.results.SuccessDataResult;
+import mjsip_design.sipServerDesign.core.utililities.results.SuccessResult;
+import mjsip_design.sipServerDesign.entities.concretes.Call;
+import mjsip_design.sipServerDesign.entities.dtos.CallWithDomainDto;
+import mjsip_design.sipServerDesign.service.abstracts.CallService;
+
+@Service 
+public class CallManager implements CallService {
+	
+	private  CallRepository callRepository; //productDao
+	
+	@Autowired
+	public CallManager(CallRepository callRepository) {
+		this.callRepository = callRepository;
+			
+	}
+	
+	
+	@Override
+	public DataResult<List<Call>> getAllCalls() {
+		 // TODO Auto-generated method stub
+		return new SuccessDataResult<List<Call>>(this.callRepository.findAll(),"Call Data listelendi");
+	}
+
+
+	@Override
+	public Result add(Call call) {
+		this.callRepository.save(call);
+		return new SuccessResult("Call eklendi");
+	}
+
+
+	@Override
+	public DataResult<Call> getByCallName(String callName) {
+		return new SuccessDataResult<Call>(this.callRepository.getByCallName(callName),"Call Data listelendi");
+	}
+
+
+	@Override
+	public DataResult<Call> getByCallId(int callId) {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<Call>(this.callRepository.getByCallId(callId),"Call Data listelendi");
+	}
+
+
+
+	@Override
+	public DataResult<Call> getByCallNameAndDomainId(String callName, int domainId) {
+		return new SuccessDataResult<Call>(this.callRepository.getByCallNameAndDomain_DomainId(callName,domainId)," Call Data listelendi");
+		//is kodlari
+		
+	} 
+
+
+	@Override
+	public DataResult<List<Call>> getByCallNameAndCallStatus(String callName, String callStatus) {
+		return new SuccessDataResult<List<Call>>(this.callRepository.getByCallNameAndCallStatus(callName, callStatus ),"Call Data listelendi");
+	}
+
+
+	@Override
+	public DataResult<List<Call>> getByCallNameContains(String callName) {
+		return new SuccessDataResult<List<Call>>(this.callRepository.getByCallNameContains(callName),"Call Data listelendi");
+ 	}
+
+ 
+	@Override
+	public DataResult<List<Call>> getByNameAndDomain(String callName, int domainId) {
+		return new SuccessDataResult<List<Call>>(this.callRepository.getByNameAndDomain(callName, domainId),"Call Data listelendi");
+	}
+
+
+	@Override
+	public DataResult<List<Call>> getAllByPage(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return new SuccessDataResult<List<Call>>(this.callRepository.findAll(pageable).getContent());	
+	}
+
+
+	@Override
+	public DataResult<List<Call>> getAllSorted() {
+		Sort sort = Sort.by(Sort.Direction.ASC, "callName");
+		return new SuccessDataResult<List<Call>>(this.callRepository.findAll(sort),"Sort operasyonu basarili");
+	}
+
+
+	@Override
+	public DataResult<List<CallWithDomainDto>> getCallWithDomainDetails() {
+		return new SuccessDataResult<List<CallWithDomainDto>>(this.callRepository.getCallWithDomainDetails(),"Call Data listelendi");
+	}
+
+
+	@Override
+	public Result updateCallById(int callId,Call updatedCall) {
+		// TODO Auto-generated method stub
+		this.callRepository.save(updatedCall);
+		return new SuccessResult("Call güncellendi");
+	}
+	
+	
+	/*
+	
+	
+	
+	public List<Call> getAllCalls(Optional<Long> userId) {
+		
+		  if (userId.isPresent()) {
+			  	return callRepository.findByUserId(userId.get());
+		        // userId değeri mevcutsa, işlem yapılabilir
+		       //Long actualUserId = userId.get();
+		        //return callService.getAllCalls(actualUserId);
+		    } else {
+		        // userId değeri mevcut değilse, uygun bir işlem yapılabilir
+		        return callRepository.findAll(); // Tüm kullanıcılar için çağrıları getir
+		    }
+	
+	}
+	public Call getOneCallById(Long callId) {
+		return callRepository.findById(callId).orElse(null);
+	}
+
+	public Call createOneCall(CallCreateRequest newCallRequest) { //donen user id'si DB'de var mi onu kontrol edelim	
+		 User user = userService.getOneUserById(newCallRequest.getUserId());	
+		 //User user = newCallRequest.getUser();	
+		if(user == null) {
+			return null;
+		}
+		Call toSave = new Call();
+		toSave.setId(newCallRequest.getId());
+		toSave.setDurationSecond(newCallRequest.getDurationSecond());
+		toSave.setStartTime(newCallRequest.getStartTime());
+		toSave.setEndTime(newCallRequest.getEndTime());
+		toSave.setStatus(newCallRequest.getStatus());
+		toSave.setUser(user);
+		return callRepository.save(toSave);	
+	}
+
+	public Call updateOneCallById(Long callId, CallUpdateRequest updateCall) {
+	//bana verilen id'ye ait bir call var mi onu kontrol et
+		Optional<Call> call = callRepository.findById(callId);
+		if(call.isPresent()) {
+			Call toUpdate = call.get();
+			toUpdate.setStatus(updateCall.getStatus());
+			toUpdate.setDurationSecond(updateCall.getDurationSecond());
+			callRepository.save(toUpdate);
+			return toUpdate;
+					
+		} 
+		
+		return null;
+
+}
+
+	public void deleteOneCallById(Long callId) { 
+	callRepository.deleteById(callId);
+
+	
+}
+*/
+	
+
+
+
+
+		
+
+}
